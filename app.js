@@ -13,10 +13,12 @@ const authenticateUserMiddleware = require('./middlewares/authenticateUser');
 
 const authRoutes = require('./routes/authRoutes');
 const buyerRoutes = require('./routes/buyerRoutes');
+const sellersRoutes = require('./routes/sellersRoutes');
 
 app.use(express.json());
 app.use('/api/auth/',authRoutes);
-app.use('/api/buyer/',buyerRoutes);
+// app.use('/api/buyer/',buyerRoutes);
+app.use('/api/seller/',[authenticateUserMiddleware,sellersRoutes]);
 app.use(errorHandlerMiddleware);
 app.use(notFoundRouteMiddleware);
 
