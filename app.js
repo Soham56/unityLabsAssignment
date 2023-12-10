@@ -17,7 +17,7 @@ const sellersRoutes = require('./routes/sellersRoutes');
 
 app.use(express.json());
 app.use('/api/auth/',authRoutes);
-// app.use('/api/buyer/',buyerRoutes);
+app.use('/api/buyer/',[authenticateUserMiddleware,buyerRoutes]);
 app.use('/api/seller/',[authenticateUserMiddleware,sellersRoutes]);
 app.use(errorHandlerMiddleware);
 app.use(notFoundRouteMiddleware);

@@ -1,6 +1,7 @@
 const Products = require('../../models/product');
 const Catalog = require('../../models/catalog');
 const { ForbiddenRouteError } = require('../../errors');
+const { StatusCodes } = require('http-status-codes');
 
 const createCatalog = async (req, res)=>{
     const {userId, type} = req.userDetails;
@@ -15,9 +16,26 @@ const createCatalog = async (req, res)=>{
         }
     });
 
-    console.log(productList);
+    await Products.create(productList);
+    const sellerAllProductList = await Products.find({sellerId: userId});
 
-    res.send('created catalog');
+    const sellerCatalogProducts = sellerAllProductList.map((sellerProduct)=>{
+        return {
+            productId: sellerProduct._id.toString(),
+            name: sellerProduct.name,
+            price: sellerProduct.price
+        }
+    });
+
+    const catalog = await Catalog.findOneAndUpdate({sellerId: userId}, {
+        sellerId: userId,
+        products: sellerCatalogProducts
+    },{
+        new: true,
+        upsert: true
+    });
+
+    res.status(StatusCodes.CREATED).json(catalog);
 
 }
 

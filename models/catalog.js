@@ -6,7 +6,7 @@ const catalogSchema = new mongoose.Schema({
         ref: 'User'
     },
     products:{
-        type: mongoose.Schema.Types.Array,
+        type: mongoose.Schema.Types.Array
     }
 });
 

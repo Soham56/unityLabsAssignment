@@ -8,7 +8,7 @@ const listOfUser = async (req, res)=>{
         throw new ForbiddenRouteError("You have no access to this route");
     }
 
-    const sellers = await User.find({type: 'seller'});
+    const sellers = await User.find({type: 'seller'}).select('username _id');
 
     return res.status(StatusCodes.OK).json({sellers});
 }
