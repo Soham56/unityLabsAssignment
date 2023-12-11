@@ -33,7 +33,14 @@ const createOrder = async (req, res)=>{
     // Get back those created orders
     const orders = await Orders.create(buyerQueryOrderList);
 
-    return res.status(StatusCodes.CREATED).json({orders});
+    const orderedProducts = orders.map((orderedProduct)=>{
+        return {
+            productId: orderedProduct.productId,
+            orderId: orderedProduct._id
+        }
+    });
+
+    return res.status(StatusCodes.CREATED).json(orderedProducts);
 }
 
 module.exports = createOrder;

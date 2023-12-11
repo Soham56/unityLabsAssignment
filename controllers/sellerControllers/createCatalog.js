@@ -33,7 +33,7 @@ const createCatalog = async (req, res)=>{
 
     //Creating a new catalog if the sellerId is not present in the database
     //Otherwise updating current catalog
-    const catalog = await Catalog.findOneAndUpdate({sellerId: userId}, {
+    const {_id:catalogId, products} = await Catalog.findOneAndUpdate({sellerId: userId}, {
         sellerId: userId,
         products: sellerCatalogProducts
     },{
@@ -41,7 +41,10 @@ const createCatalog = async (req, res)=>{
         upsert: true
     });
 
-    res.status(StatusCodes.CREATED).json(catalog);
+    res.status(StatusCodes.CREATED).json({
+        catalogId,
+        products
+    });
 
 }
 
