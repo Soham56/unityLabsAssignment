@@ -115,7 +115,7 @@ Make HTTP requests to the API endpoints as described below.
             },
             {
                 "name":"product3",
-                "price":"34io"
+                "price":"340"
             }
         ]
     ```
