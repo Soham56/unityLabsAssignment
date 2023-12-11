@@ -32,7 +32,7 @@ This project serves as the backend for a REST API with authentication and author
 
    ```
    MONGO_URI=<your-mongo-uri>
-   JWT_SECRET=<your-jwt-secret>
+   JWT_SECREAT=<your-jwt-secret>
    JWT_EXPIRESIN=<your-jwt-expires-in>
    ```
 
@@ -130,5 +130,5 @@ Make HTTP requests to the API endpoints as described below.
 ## Environment Variables
 
 - `MONGO_URI`: MongoDB connection URI.
-- `JWT_SECRET`: Secret key for JWT token generation.
+- `JWT_SECREAT`: Secret key for JWT token generation.
 - `JWT_EXPIRESIN`: Token expiration time.
