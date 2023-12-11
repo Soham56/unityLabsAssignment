@@ -89,8 +89,6 @@ Make HTTP requests to the API endpoints as described below.
                 "name": "product3",
                 "price": 344
             },
-            .
-            .,
             {
                 "productId": "seller's catalog productId2",
                 "name": "product1",
@@ -115,8 +113,6 @@ Make HTTP requests to the API endpoints as described below.
                 "name": "product2",
                 "price": "255"
             },
-            .
-            .,
             {
                 "name":"product3",
                 "price":"34io"
