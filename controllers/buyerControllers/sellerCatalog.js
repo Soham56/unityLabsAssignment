@@ -6,9 +6,15 @@ const getSellerCatalog = async (req, res)=>{
     const {seller_id:sellerId} = req.params;
 
     //Selecting only products from wanted seller catalog
-    const {products} = await Catalog.findOne({sellerId});
+    const catalog = await Catalog.findOne({sellerId});
 
-    return res.status(StatusCodes.OK).json(products);
+    if(!catalog){
+        return res.status(StatusCodes.OK).json({
+            msg: `No catalog present for sellerId ${sellerId}`
+        });
+    }
+
+    return res.status(StatusCodes.OK).json({products: catalog.products});
 }
 
 module.exports = getSellerCatalog;

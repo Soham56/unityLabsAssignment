@@ -11,7 +11,7 @@ const errorHandler = (err, req, res, next)=>{
     }
     else if(err.name=='CastError'){
         customError.msg = `No user present with id: ${err.value}`;
-        customError.status = StatusCodes.BAD_REQUEST;
+        customError.status = StatusCodes.NOT_FOUND;
     }
     else if(err.name=='ValidationError'){
         const errorFields = Object.keys(err.errors);
