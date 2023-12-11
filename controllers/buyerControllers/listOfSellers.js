@@ -3,10 +3,7 @@ const {ForbiddenRouteError} = require('../../errors');
 const { StatusCodes } = require('http-status-codes');
 
 const listOfUser = async (req, res)=>{
-    const {userId, type} = req.userDetails;
-    if(type!='buyer') {
-        throw new ForbiddenRouteError("You have no access to this Route !");
-    }
+    const {userId} = req.userDetails;
 
     // Selecting list of sellers with just username and userId fileds 
     const sellers = await User.find({type: 'seller'}).select('username _id');

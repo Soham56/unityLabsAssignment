@@ -4,11 +4,7 @@ const Orders = require('../../models/order');
 const Catalog = require('../../models/catalog');
 
 const createOrder = async (req, res)=>{
-    const {userId, type} = req.userDetails;
-    if(type!=='buyer'){
-        throw new ForbiddenRouteError('You have no access to this Route !');
-    }
-
+    const {userId} = req.userDetails;
     const {seller_id:sellerId} = req.params;
 
     //Buyer Given List of items

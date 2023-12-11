@@ -4,10 +4,7 @@ const { ForbiddenRouteError } = require('../../errors');
 const { StatusCodes } = require('http-status-codes');
 
 const createCatalog = async (req, res)=>{
-    const {userId, type} = req.userDetails;
-    if(type!=='seller'){
-        throw new ForbiddenRouteError('You have no access to this Route !');
-    }
+    const {userId} = req.userDetails;
 
     //Fetching all seller products to into the catalog
     const userProductList = req.body;
