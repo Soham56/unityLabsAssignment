@@ -6,7 +6,7 @@ const getOrders = async (req, res)=>{
     const {userId} = req.userDetails;
 
     //Finding orders for sellerId
-    const orders = await Orders.find({sellerId: userId});
+    const orders = await Orders.find({sellerId: userId}).select('productId buyerId');
 
     return res.status(StatusCodes.OK).json(orders);
 }

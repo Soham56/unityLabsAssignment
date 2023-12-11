@@ -12,6 +12,7 @@ const userSchema = new mongoose.Schema({
     },
     type:{
         type: String,
+        required: [true, 'Please Provide Your Type'],
         enum:{
             values: ['buyer', 'seller'],
             message: '{VALUE} is not supported'
