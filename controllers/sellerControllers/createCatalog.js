@@ -9,16 +9,23 @@ const createCatalog = async (req, res)=>{
         throw new ForbiddenRouteError('You have no access to this Route !');
     }
 
+    //Fetching all seller products to into the catalog
     const userProductList = req.body;
+
+    //Cutomizing the details to fit into the schema structure
     const productList = userProductList.map((userProduct)=>{
         return {
             ...userProduct,sellerId:userId
         }
     });
 
+    //Creating those products into the Products Database
     await Products.create(productList);
+
+    //Selecting all products of the seller
     const sellerAllProductList = await Products.find({sellerId: userId});
 
+    //Customizing products according to the schema's structure
     const sellerCatalogProducts = sellerAllProductList.map((sellerProduct)=>{
         return {
             productId: sellerProduct._id.toString(),
@@ -27,6 +34,8 @@ const createCatalog = async (req, res)=>{
         }
     });
 
+    //Creating a new catalog if the sellerId is not present in the database
+    //Otherwise updating current catalog
     const catalog = await Catalog.findOneAndUpdate({sellerId: userId}, {
         sellerId: userId,
         products: sellerCatalogProducts
