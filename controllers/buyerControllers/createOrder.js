@@ -8,18 +8,21 @@ const createOrder = async (req, res)=>{
     const {seller_id:sellerId} = req.params;
 
     //Buyer Given List of items
-    let buyerOrderList = req.body;
+    const buyerOrderList = req.body;
 
     const {products:sellerCatalog} = await Catalog.findOne({sellerId});
 
     // Filtering those items which are actually present in seller catalog
     // In case buyer includes some items which are not present in seller catalog
-    buyerOrderList = buyerOrderList.filter((buyerOrder)=>{
-        return sellerCatalog.includes(buyerOrder);
-    })
+    const buyerFilteredOrderList = buyerOrderList.filter((buyerOrder)=>{
+        return sellerCatalog.some((sellerProduct)=> {
+            return sellerProduct.productId === buyerOrder.productId;
+        });
+    });
+
 
     // Final query list to create order
-    const buyerQueryOrderList = buyerOrderList.map((buyerOrder)=>{
+    const buyerQueryOrderList = buyerFilteredOrderList.map((buyerOrder)=>{
         return {
             buyerId: userId,
             sellerId,
